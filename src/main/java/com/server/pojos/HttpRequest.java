@@ -29,6 +29,11 @@ public class HttpRequest {
         return requestHeaders;
     }
 
+    @Override
+    public String toString() {
+        return "HttpRequest{" + "httpMethod=" + httpMethod + ", uri=" + uri + ", requestHeaders=" + requestHeaders + '}';
+    }
+
     public static class Builder {
         private HttpMethod httpMethod;
         private URI uri;

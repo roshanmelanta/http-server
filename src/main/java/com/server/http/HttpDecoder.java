@@ -49,6 +49,14 @@ public class HttpDecoder {
                     message.add(line);
                 }
             }
+            System.out.println("-----------Character Array Buffer-----------");
+            for (int i = 0; i < inBuffer.length; i++) {
+                System.out.print(inBuffer[i]);
+            }
+            System.out.println("\n");
+            System.out.println("-----------Message-----------");
+            System.out.println(message);
+            System.out.println("\n");
             return Optional.of(message);
         } catch (Exception ignored) {
             return Optional.empty();
@@ -97,6 +105,9 @@ public class HttpDecoder {
         if (message.size() > 1) {
             for (int i = 1; i < message.size(); i++) {
                 String header = message.get(i);
+                System.out.println("-----------Header-----------");
+                System.out.println(header);
+                System.out.println("\n");
                 int colonIndex = header.indexOf(":");
 
                 if (!(colonIndex > 0 && header.length() > colonIndex + 1)) {
@@ -116,6 +127,9 @@ public class HttpDecoder {
                 });
             }
         }
+        System.out.println("-----------Request Headers-----------");
+        System.out.println(requestHeaders);
+        System.out.println("\n");
         builder.setRequestHeaders(requestHeaders);
         return builder.build();
     }

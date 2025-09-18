@@ -40,6 +40,9 @@ public class Server {
 
         while(true) {
             Socket clientConnection = socket.accept();
+            System.out.println("-----------Socket Connection-----------");
+            System.out.println(clientConnection);
+            System.out.println("\n");
             handleConnection(clientConnection);
         }
     }

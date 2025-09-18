@@ -27,6 +27,9 @@ public class ResponseWriter {
      */
     public static void writeResponse(final BufferedWriter outputStream, final HttpResponse response) {
         try {
+            System.out.println("-----------Response-----------");
+            System.out.println(response.toString());
+            System.out.println("\n");
             final int statusCode = response.getStatusCode();
             final String statusCodeMeaning = HttpStatusCode.STATUS_CODES.get(statusCode);
             final List<String> responseHeaders = buildHeaderStrings(response.getResponseHeaders());
@@ -37,11 +40,13 @@ public class ResponseWriter {
                 outputStream.write(header);
             }
 
-            final Optional<String> entityString = response.getEntity().flatMap(ResponseWriter::getResppnseString);
+            final Optional<String> entityString = response.getEntity().flatMap(ResponseWriter::getResponseString);
             if (entityString.isPresent()) {
                 final String encodedString = new String(entityString.get().getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
-                // Note: header name has a typo ("Content-Lenght"); consider fixing to "Content-Length"
-                outputStream.write("Content-Lenght: " + encodedString.getBytes().length + "\r\n");
+                System.out.println("-----------Encoded String-----------");
+                System.out.println(encodedString);
+                System.out.println("\n");
+                outputStream.write("Content-Length: " + encodedString.getBytes().length + "\r\n");
                 outputStream.write("\r\n");
                 outputStream.write(encodedString);
             }
@@ -74,7 +79,7 @@ public class ResponseWriter {
      * Extract a writeable String from the entity if supported.
      * - Currently supports String entities; otherwise empty.
      */
-    private static Optional<String> getResppnseString(final Object entity) {
+    private static Optional<String> getResponseString(final Object entity) {
         // Currently only supporting strings
         if (entity instanceof String) {
             try {

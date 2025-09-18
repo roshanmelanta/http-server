@@ -38,6 +38,11 @@ public class HttpResponse {
         return entity;
     }
 
+    @Override
+    public String toString() {
+        return "HttpResponse{" + "responseHeaders=" + responseHeaders + ", statusCode=" + statusCode + ", entity=" + entity + '}';
+    }
+
     public static class Builder {
         private final Map<String, List<String>> responseHeaders;
         private int statusCode;

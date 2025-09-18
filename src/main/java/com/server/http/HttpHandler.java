@@ -38,6 +38,9 @@ public class HttpHandler {
 
         // Decode incoming request (returns Optional<HttpRequest>)
         Optional<HttpRequest> request = HttpDecoder.decode(inputStream);
+        System.out.println("-----------Request-----------");
+        System.out.println(request.toString());
+        System.out.println("\n");
 
         // Process request if valid, otherwise send error response
         request.ifPresentOrElse(
@@ -45,7 +48,6 @@ public class HttpHandler {
                 () -> handleInvalidRequest(bufferedWriter) // invalid request
         );
 
-        // Close resources (important for releasing socket I/O streams)
         bufferedWriter.close();
         inputStream.close();
     }
